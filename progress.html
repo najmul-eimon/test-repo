@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .circle{
+      height: 200px;
+      width: 200px;
+      border: 2px solid green;
+      border-radius: 50%;
+      background-image: conic-gradient(green 3.6deg, white 0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .circle:after{
+      content: '';
+      height: 180px;
+      width: 180px;
+      border-radius: 50%;
+      background-color: white;
+    }
+    .circle .progress{
+      font-size: 40px;
+      font-weight: semibold;
+      color: green;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+  <div class="circle">
+    <div class="progress">0%</div>
+  </div>
+
+  <script>
+    let circle = document.querySelector('.circle');
+    let progress = document.querySelector('.progress');
+
+    let start = 0;
+    let end = 50;
+    let speed = 100;
+
+    let animate = setInterval(() => {
+      start++;
+
+      progress.textContent = `${start}%`
+      circle.style.backgroundImage = `conic-gradient(green ${start * 3.6}deg, white 0deg)`;
+
+      if(start == end){
+        clearInterval(animate);
+      }
+    }, speed);
+
+  </script>
+</body>
+</html>

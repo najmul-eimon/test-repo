@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .vid-icon {
+      margin-top: 100px;
+      margin-left: 100px;
+      display: inline-block;
+      position: relative;
+    }
+
+    .vid-icon .fas {
+      display: block;
+      height: 85px;
+      width: 85px;
+      line-height: 85px;
+      text-align: center;
+      background: hsla(216, 73%, 61%, 0.6);
+      border-radius: 50%;
+      font-size: 30px;
+      color: #fff;
+    }
+
+    .vid-icon .fas:after {
+      position: absolute;
+      content: "";
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 rgba(60, 111, 247, 0.2), 0 0 0 15px rgba(60, 111, 247, 0.2),
+        0 0 0 30px rgba(60, 111, 247, 0.2);
+      animation: ripple-wave 1s linear infinite;
+      animation-play-state: running;
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    @keyframes ripple-wave {
+      from{
+        box-shadow: 0 0 rgba(60, 111, 247, 0.2), 0 0 0 15px rgba(60, 111, 247, 0.2),
+        0 0 0 30px rgba(60, 111, 247, 0.2);
+      }
+      to {
+        box-shadow: 0 0 0 15px rgba(60, 111, 247, 0.2),
+          0 0 0 30px rgba(60, 111, 247, 0.2), 0 0 0 45px rgba(60, 111, 247, 0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="vid-icon venobox" href="#!">
+    <span class="fas fa-play"></span>
+  </a>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horizontal scroll</title>
+
+  <style>
+    .main-wrapper{
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: auto;
+    }
+    .btns {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 1000px;
+      margin: 100px auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    button {
+      border: 1px solid #000;
+      padding: 8px 16px;
+      font-size: 16px;
+      background: #fff;
+      cursor: pointer;
+      flex-shrink: 0;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      color: #fff;
+      background: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-wrapper">
+    <button type="button" class="horizontalScrolerPrevBtn">
+      prev
+    </button>
+    <div class="btns cat-section-elements">
+      <button type="button">button-1</button>
+      <button type="button">button-2</button>
+      <button type="button">button-3</button>
+      <button type="button">button-4</button>
+      <button type="button">button-5</button>
+      <button type="button">button-6</button>
+      <button type="button">button-7</button>
+      <button type="button">button-8</button>
+      <button type="button">button-9</button>
+      <button type="button">button-10</button>
+      <button type="button">button-11</button>
+      <button type="button">button-12</button>
+      <button type="button">button-13</button>
+      <button type="button">button-14</button>
+      <button type="button">button-15</button>
+      <button type="button">button-16</button>
+      <button type="button">button-17</button>
+      <button type="button">button-18</button>
+      <button type="button">button-19</button>
+      <button type="button">button-20</button>
+      <button type="button">button-21</button>
+      <button type="button">button-22</button>
+      <button type="button">button-23</button>
+      <button type="button">button-24</button>
+      <button type="button">button-25</button>
+    </div>
+    <button type="button" class="horizontalScrolerNextBtn">
+      next
+    </button>
+  </div>
+
+  <script>
+    const horizontalScroller = (element, to, duration) => {
+      const start = element.scrollLeft;
+      const change = to - start;
+      const startTime = performance.now();
+
+      function animateScroll(timestamp) {
+        const currentTime = timestamp - startTime;
+        const increment = Math.easeInOutQuad(currentTime, start, change, duration);
+        element.scrollLeft = increment;
+
+        if (currentTime < duration) {
+          requestAnimationFrame(animateScroll);
+        }
+      }
+
+      Math.easeInOutQuad = function (t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return (c / 2) * t * t + b;
+        t--;
+        return (-c / 2) * (t * (t - 2) - 1) + b;
+      };
+
+      requestAnimationFrame(animateScroll);
+
+      setTimeout(() => {
+        const horizontalScrolerPrevBtn = document.querySelector(
+          ".horizontalScrolerPrevBtn"
+        );
+        const horizontalScrolerNextBtn = document.querySelector(
+          ".horizontalScrolerNextBtn"
+        );
+        if (element.scrollLeft === 0) {
+          horizontalScrolerPrevBtn.style.opacity = "0.2";
+        } else {
+          horizontalScrolerPrevBtn.style.opacity = "1";
+        }
+
+        if (element.scrollLeft >= element.scrollWidth - element.clientWidth) {
+          horizontalScrolerNextBtn.style.opacity = "0.2";
+        } else {
+          horizontalScrolerNextBtn.style.opacity = "1";
+        }
+      }, 500);
+    };
+
+    const horizontalScrolerPrevBtn = document.querySelector(
+      ".horizontalScrolerPrevBtn"
+    );
+    horizontalScrolerPrevBtn.addEventListener('click', () => {
+      previousAndNextScrollHandeler('prev-btn')
+    })
+
+    const horizontalScrolerNextBtn = document.querySelector(
+      ".horizontalScrolerNextBtn"
+    );
+
+    horizontalScrolerNextBtn.addEventListener('click', () => {
+      previousAndNextScrollHandeler('next-btn')
+    })
+
+    const previousAndNextScrollHandeler = (btnType) => {
+      const scrollContainer = document.querySelector(".cat-section-elements");
+      const scrollStep = btnType === "next-btn" ? stepValue : -stepValue;
+      const scrollValue = scrollContainer.scrollLeft + scrollStep;
+      horizontalScroller(scrollContainer, scrollValue, durationValue); // Adjust the duration (500ms) to control the smoothness
+    };
+
+    
+
+    const stepValue = 500;
+    const durationValue = 1000;
+
+
+    const scrollContainer = document.querySelector(".cat-section-elements");
+    scrollContainer.addEventListener("wheel", (evt) => {
+      evt.preventDefault();
+      const scrollStep = evt.deltaY > 0 ? stepValue : -stepValue;
+      const scrollValue = scrollContainer.scrollLeft + scrollStep;
+      horizontalScroller(scrollContainer, scrollValue,
+      durationValue); // Adjust the duration (500ms) to control the smoothness
+    });
+  </script>
+</body>
+
+</html>
